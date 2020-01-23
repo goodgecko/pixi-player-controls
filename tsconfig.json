@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "declaration": false,
+        "declarationMap":false,
+        "sourceMap": false,
+        "rootDir": "./src",
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "watch":true
+    },
+    "compileOnSave": true,
+    "buildOnSave": true
+}
