@@ -41,14 +41,16 @@ export class Keyboard{
     /**
      * add a keyboard button to listen out for, e.g "W" or "ArrowRight"
      * @param value key value
+     * @param pressed function to call on key press
+     * @param released function to call on key release
      */
-    public addKey(value:string) {
+    public addKey(value:string, pressed:()=>{} = undefined, released:()=>{} = undefined ) {
         let key:Key = new Key();
         key.value = value;
         key.isDown = false;
         key.isUp = true;
-        key.press = undefined;
-        key.release = undefined;
+        key.press = pressed;
+        key.release = released;
         
         this.keyList.push(key);
 

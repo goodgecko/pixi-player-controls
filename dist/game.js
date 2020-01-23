@@ -45906,24 +45906,23 @@ var PlayerMovementControl = /** @class */ (function () {
      * adds the character keyboard controls to the keyboard listener
      */
     PlayerMovementControl.prototype.createKeyboardEvents = function (keys) {
-        var _this = this;
         if (keys === void 0) { keys = ["W", "D", "S", "A"]; }
-        this.keyTop = this.keyManager.addKey(keys[0]);
-        this.keyRight = this.keyManager.addKey(keys[1]);
-        this.keyDown = this.keyManager.addKey(keys[2]);
-        this.keyLeft = this.keyManager.addKey(keys[3]);
-        this.keyTop.press = function () {
-            _this.velocityY = -_this.speed;
-        };
-        this.keyRight.press = function () {
-            _this.velocityX = _this.speed;
-        };
-        this.keyDown.press = function () {
-            _this.velocityY = _this.speed;
-        };
-        this.keyLeft.press = function () {
-            _this.velocityX = -_this.speed;
-        };
+        this.keyTop = this.keyManager.addKey(keys[0], this.keyTopPressed.bind(this));
+        this.keyRight = this.keyManager.addKey(keys[1], this.keyRightPressed.bind(this));
+        this.keyDown = this.keyManager.addKey(keys[2], this.keyDownPressed.bind(this));
+        this.keyLeft = this.keyManager.addKey(keys[3], this.keyLeftPressed.bind(this));
+    };
+    PlayerMovementControl.prototype.keyTopPressed = function () {
+        this.velocityY = -this.speed;
+    };
+    PlayerMovementControl.prototype.keyRightPressed = function () {
+        this.velocityX = this.speed;
+    };
+    PlayerMovementControl.prototype.keyDownPressed = function () {
+        this.velocityY = this.speed;
+    };
+    PlayerMovementControl.prototype.keyLeftPressed = function () {
+        this.velocityX = -this.speed;
     };
     /**
      * updates player velocity and makes sure it doesn't exceed the boundaries
@@ -46013,14 +46012,18 @@ var Keyboard = /** @class */ (function () {
     /**
      * add a keyboard button to listen out for, e.g "W" or "ArrowRight"
      * @param value key value
+     * @param pressed function to call on key press
+     * @param released function to call on key release
      */
-    Keyboard.prototype.addKey = function (value) {
+    Keyboard.prototype.addKey = function (value, pressed, released) {
+        if (pressed === void 0) { pressed = undefined; }
+        if (released === void 0) { released = undefined; }
         var key = new Key();
         key.value = value;
         key.isDown = false;
         key.isUp = true;
-        key.press = undefined;
-        key.release = undefined;
+        key.press = pressed;
+        key.release = released;
         this.keyList.push(key);
         return key;
     };

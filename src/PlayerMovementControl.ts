@@ -34,26 +34,26 @@ export class PlayerMovementControl{
      * adds the character keyboard controls to the keyboard listener
      */
     private createKeyboardEvents(keys:string[] = ["W","D","S","A"]){
-        this.keyTop = this.keyManager.addKey(keys[0]);
-        this.keyRight = this.keyManager.addKey(keys[1]);
-        this.keyDown = this.keyManager.addKey(keys[2]);
-        this.keyLeft = this.keyManager.addKey(keys[3]);
-        
-        this.keyTop.press = () => {
-            this.velocityY = -this.speed;
-        };
-        
-        this.keyRight.press = () => {
-            this.velocityX = this.speed;
-        };
-        
-        this.keyDown.press = () => {
-            this.velocityY = this.speed;
-        };
+        this.keyTop = this.keyManager.addKey(keys[0], this.keyTopPressed.bind(this));
+        this.keyRight = this.keyManager.addKey(keys[1], this.keyRightPressed.bind(this));
+        this.keyDown = this.keyManager.addKey(keys[2], this.keyDownPressed.bind(this));
+        this.keyLeft = this.keyManager.addKey(keys[3], this.keyLeftPressed.bind(this));
+    }
 
-        this.keyLeft.press = () => {
-            this.velocityX = -this.speed;
-        };
+    private keyTopPressed(){
+        this.velocityY = -this.speed;
+    }
+
+    private keyRightPressed(){
+        this.velocityX = this.speed;
+    }
+
+    private keyDownPressed(){
+        this.velocityY = this.speed;
+    }
+
+    private keyLeftPressed(){
+        this.velocityX = -this.speed;
     }
 
 
