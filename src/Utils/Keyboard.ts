@@ -1,5 +1,5 @@
 export class Key{
-    value:string;
+    keyID:string;
     isDown:boolean;
     isUp:boolean;
     press:any;
@@ -22,11 +22,8 @@ export class Keyboard{
      * creates listeners for when keyboard keys are pressed and released
      */
     public addEventListeners(){
-        this.downHandler = this.downHandler.bind(this);
-        this.upHandler = this.upHandler.bind(this);
-
-        window.addEventListener("keydown", this.downHandler, false);
-        window.addEventListener("keyup", this.upHandler, false);
+        window.addEventListener("keydown", this.downHandler.bind(this), false);
+        window.addEventListener("keyup", this.upHandler.bind(this), false);
     }
 
     /**
@@ -40,13 +37,13 @@ export class Keyboard{
 
     /**
      * add a keyboard button to listen out for, e.g "W" or "ArrowRight"
-     * @param value key value
+     * @param keyID key keyID
      * @param pressed function to call on key press
      * @param released function to call on key release
      */
-    public addKey(value:string, pressed:()=>{} = undefined, released:()=>{} = undefined ) {
+    public addKey(keyID:string, pressed:()=>{} = undefined, released:()=>{} = undefined ) {
         let key:Key = new Key();
-        key.value = value;
+        key.keyID = keyID;
         key.isDown = false;
         key.isUp = true;
         key.press = pressed;
@@ -59,10 +56,10 @@ export class Keyboard{
 
     /**
      * removes a key from the listeners
-     * @param value the key to remove
+     * @param keyID the key to remove
      */
-    public removeKey(value:Key) {
-        const index: number = this.keyList.indexOf(value);
+    public removeKey(keyID:Key) {
+        const index: number = this.keyList.indexOf(keyID);
         if (index !== -1) {
             this.keyList.splice(index, 1);
         }
@@ -77,7 +74,7 @@ export class Keyboard{
         for(let i:number = 0; i < this.keyList.length; i++){
             let key:Key = this.keyList[i];
 
-            if (event.key === key.value) {
+            if (event.key === key.keyID) {
                 if (key.isUp && key.press) key.press();
                 key.isDown = true;
                 key.isUp = false;
@@ -96,7 +93,7 @@ export class Keyboard{
         for(let i:number = 0; i < this.keyList.length; i++){
             let key:Key = this.keyList[i];
 
-            if (event.key === key.value) {
+            if (event.key === key.keyID) {
                 if (key.isDown && key.release) key.release();
                 key.isDown = false;
                 key.isUp = true;
