@@ -45979,12 +45979,6 @@ exports.PlayerMovementControl = PlayerMovementControl;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Key = /** @class */ (function () {
-    function Key() {
-    }
-    return Key;
-}());
-exports.Key = Key;
 var Keyboard = /** @class */ (function () {
     /**
      * small class to abstract the use of keyboard inputs
@@ -46016,12 +46010,13 @@ var Keyboard = /** @class */ (function () {
     Keyboard.prototype.addKey = function (keyID, pressed, released) {
         if (pressed === void 0) { pressed = undefined; }
         if (released === void 0) { released = undefined; }
-        var key = new Key();
-        key.keyID = keyID;
-        key.isDown = false;
-        key.isUp = true;
-        key.press = pressed;
-        key.release = released;
+        var key = {
+            keyID: keyID,
+            isDown: false,
+            isUp: true,
+            press: pressed,
+            release: released
+        };
         this.keyList.push(key);
         return key;
     };

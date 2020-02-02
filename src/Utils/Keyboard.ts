@@ -1,4 +1,4 @@
-export class Key{
+export interface Key{
     keyID:string;
     isDown:boolean;
     isUp:boolean;
@@ -42,12 +42,13 @@ export class Keyboard{
      * @param released function to call on key release
      */
     public addKey(keyID:string, pressed:()=>{} = undefined, released:()=>{} = undefined ) {
-        let key:Key = new Key();
-        key.keyID = keyID;
-        key.isDown = false;
-        key.isUp = true;
-        key.press = pressed;
-        key.release = released;
+        let key:Key = {
+            keyID:keyID,
+            isDown:false,
+            isUp:true,
+            press:pressed,
+            release:released
+        };
         
         this.keyList.push(key);
 
