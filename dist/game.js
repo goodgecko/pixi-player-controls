@@ -45827,7 +45827,7 @@ var GameScreen = /** @class */ (function () {
         return mapContainer;
     };
     /**
-     * creates the player, adds a simple sprite to a container and adds it the the centre of the screen
+     * creates the player, adds a simple sprite to a container and adds it the the center of the screen
      */
     GameScreen.prototype.createPlayer = function () {
         var playerContainer = new pixi_js_1.Container();
@@ -45841,12 +45841,12 @@ var GameScreen = /** @class */ (function () {
     GameScreen.prototype.gameLoop = function (delta) {
         //update the player movement 
         this.playerMoveController.gameLoop(delta);
-        //find each players position relative to their map, then find the centre point between both players
+        //find each players position relative to their map, then find the center point between both players
         var playerLocal = this.playerMoveController.getPlayerPosition();
-        var screenCentre = new PIXI.Point(this.app.screen.width * .5, this.app.screen.height * .5);
+        var screenCenter = new PIXI.Point(this.app.screen.width * .5, this.app.screen.height * .5);
         //the maps are anchored to the top left
-        //so minus playerCentre would put the playerCentre in the top left of screen + half the screen width / height to focues the playerCentre in the centre of the screen
-        var newMapPos = new pixi_js_1.Point(-playerLocal.x + screenCentre.x, -playerLocal.y + screenCentre.y);
+        //so minus playerCenter would put the playerCenter in the top left of screen + half the screen width / height to focues the playerCenter in the center of the screen
+        var newMapPos = new pixi_js_1.Point(-playerLocal.x + screenCenter.x, -playerLocal.y + screenCenter.y);
         //this is a quick check to make sure the final map positions don't reveal the edge of the map
         //it just checks the calculated map positions witht he screen boundary
         if (newMapPos.x < -this.mapWidth + this.app.screen.width) {
