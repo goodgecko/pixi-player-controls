@@ -4,11 +4,11 @@ Make sure you install the latest version of **[https://node.js](https://nodejs.o
 
 Github repositories do not include the "node_module" dependancy folders, so in the Terminal run:
 
-**npm i**   
+    npm i   
 
 And then to build the game.js, in the Terminal run:
 
-**npm run build**
+    npm run build
 
 Webpack will then compile the Typescript into Javascript and bundle all the files into a single dist/game.js  
 
@@ -16,11 +16,11 @@ Webpack will then compile the Typescript into Javascript and bundle all the file
 
 In the Terminal run:
 
-**cd dist**
+    cd dist
 
 Your Terminal is pointing to the dist/ folder you can run:
 
-**http-server**
+    http-server
 
 Copy the link provided in the Terminal, in my case its: [http://127.0.0.1:8080](http://127.0.0.1:8080)  
 
@@ -46,7 +46,7 @@ We are going to create a keyboard controlled player plus a camera that follows t
 
 
 
-## Overview
+## <a id="Overview"></a>Overview
 
 - Seperate keyboard class to handle keyboard events.  
 - Player has a X and Y velocity which gradually decreases if there are no movement keys pressed.  
@@ -57,7 +57,7 @@ We are going to create a keyboard controlled player plus a camera that follows t
 
 
 
-## Keyboard Input
+## <a id="keyboard_input"></a>Keyboard Input
 
 PixiJS has built in events to detect when any keyboard key is pressed or released:
 
@@ -196,7 +196,7 @@ Now we can easily add a function to any key press we want like this:
 
 
 
-## Player Velocity
+## <a id="player_velocity"></a>Player Velocity
 
 Create a new class called: PlayerMovementControl.ts  
 The player will have two velocities X and Y, when a move key is pressed the velocity with change to the relevant direction.
@@ -256,7 +256,7 @@ We can then get the players new position by simply added the velocity to the cur
 
 
 
-## Player Boundaries
+## <a id="player_boundaries"></a>Player Boundaries
 
 But before we update the players actual position we should check if he is within the map boundaries
 
@@ -283,7 +283,7 @@ But before we update the players actual position we should check if he is within
 
 
 
-## Player Angle
+## <a id="player_angle"></a>Player Angle
 
 This is a fairly common line of code in game development and simple rotates the object based on a point relative to {x:0,y:0}
 
@@ -295,7 +295,7 @@ This is a fairly common line of code in game development and simple rotates the 
 
 
 
-## Main Game
+## <a id="main_game"></a>Main Game
 
 We can now create our main game class GameScreen.ts, we are simply adding a map sprite to the stage, a player sprite and creating an instance of our player controller class.
 
@@ -358,7 +358,7 @@ We can now create our main game class GameScreen.ts, we are simply adding a map 
 
 
 
-## Map Position
+## <a id="player_position"></a>Map Position
 
 We want the character to always be in the middle of the screen except at the edges of the map. To achieve this we can move the map opposite the players position. ![](_raw/field3.png) ![](_raw/field4.png) And then plus half of the screen's width and height to place the player at the center of the screen. ![](_raw/field5.png)
 
