@@ -1,4 +1,34 @@
-# PIXI, TypeScript: Character Movements + Screen Follow
+# PIXI, TypeScript: Character Movements + Screen Follow - Quick Setup
+
+Make sure you install the latest version of **[https://node.js](https://nodejs.org)**.
+
+Github repositories do not include the "node_module" dependancy folders, so in the Terminal run:
+
+**npm i**   
+
+And then to build the game.js, in the Terminal run:
+
+**npm run build**
+
+Webpack will then compile the Typescript into Javascript and bundle all the files into a single dist/game.js  
+
+> **Note:** It might give you a warning saying the .js file is large. This is just a warning because it combines your game code plus the pixi.js and all of its dependencies, in the final release you can swap the game.js in the index.html with game.min.js to reduce the file size.
+
+In the Terminal run:
+
+**cd dist**
+
+Your Terminal is pointing to the dist/ folder you can run:
+
+**http-server**
+
+Copy the link provided in the Terminal, in my case its: [http://127.0.0.1:8080](http://127.0.0.1:8080)  
+
+Hopefully your game will load. If not, check the Chrome debugger, chances are it will show you what went wrong. 
+
+
+
+# PIXI, TypeScript: Character Movements + Screen Follow - Tutorial
 
 We are going to create a keyboard controlled player plus a camera that follows the player (in reality its the map moving so the player remains in the center)  
 
@@ -6,6 +36,7 @@ We are going to create a keyboard controlled player plus a camera that follows t
 
 ## Topics
 
+1.  [Overview](#Overview)
 1.  [Keyboard Input](#keyboard_input)
 2.  [Player Velocity](#player_velocity)
 3.  [Player Boundaries](#player_boundaries)
