@@ -33,6 +33,9 @@ export class GameScreen {
         this.playerMoveController = new PlayerMovementControl(this.app, this.player, new PIXI.Rectangle(0,0,this.mapWidth, this.mapHeight), ["ArrowUp","ArrowRight","ArrowDown","ArrowLeft"]);
 
         app.ticker.add(delta => this.gameLoop(delta));
+
+        window.addEventListener('resize', this.resize.bind(this));
+        this.resize();
     }
 
 
@@ -102,5 +105,10 @@ export class GameScreen {
         this.mapContainer.y = newMapPos.y;
         this.playerContainer.x = newMapPos.x;
         this.playerContainer.y = newMapPos.y;
+    }
+
+    // Resize function window
+    private resize() {
+        this.app.renderer.resize(window.innerWidth, window.innerHeight);
     }
 }

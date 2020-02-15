@@ -45813,6 +45813,8 @@ var GameScreen = /** @class */ (function () {
         this.app.stage.addChild(this.playerContainer);
         this.playerMoveController = new PlayerMovementControl_1.PlayerMovementControl(this.app, this.player, new PIXI.Rectangle(0, 0, this.mapWidth, this.mapHeight), ["ArrowUp", "ArrowRight", "ArrowDown", "ArrowLeft"]);
         app.ticker.add(function (delta) { return _this.gameLoop(delta); });
+        window.addEventListener('resize', this.resize.bind(this));
+        this.resize();
     }
     /**
      * creates the map, adds a simple sprite to a container.
@@ -45866,6 +45868,10 @@ var GameScreen = /** @class */ (function () {
         this.mapContainer.y = newMapPos.y;
         this.playerContainer.x = newMapPos.x;
         this.playerContainer.y = newMapPos.y;
+    };
+    // Resize function window
+    GameScreen.prototype.resize = function () {
+        this.app.renderer.resize(window.innerWidth, window.innerHeight);
     };
     return GameScreen;
 }());
