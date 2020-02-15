@@ -22,7 +22,7 @@ export class PlayerMovementControl{
      * @param mapRect - player movement boundaries
      * @param keys - the keys used to control the character in the order of top-right-down-left
      */
-    constructor(private app:Application, private player:PIXI.Sprite, private mapRect:PIXI.Rectangle, keys:string[] = ["W","D","S","A"]){
+    constructor(private app:Application, private player:PIXI.Sprite, private mapRect:PIXI.Rectangle, keys:string[] = ["W","D","S","A"], private demoKeys:PIXI.Sprite){
         this.createKeyboardEvents(keys);
        
         //calling gameLoop from the GameScreen for more control
@@ -94,6 +94,11 @@ export class PlayerMovementControl{
 
         if(this.player.x != newPlayerX || this.player.y != newPlayerY){
             this.player.rotation = Math.atan2(newPlayerY - this.player.y, newPlayerX - this.player.x);
+        }
+
+        //reduce the alpha of the demo keys
+        if(this.demoKeys.alpha > 0 && (this.velocityY+this.velocityX) != 0 ){
+            this.demoKeys.alpha -= .05;
         }
 
         this.player.x = newPlayerX;

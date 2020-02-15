@@ -45761,6 +45761,7 @@ var LoadingScreen = /** @class */ (function () {
         PIXI.Loader.shared
             .add("player1", "assets/player1.png")
             .add("player2", "assets/player2.png")
+            .add("playerArrow", "assets/arrows.png")
             .add("field", "assets/field.png")
             .on("progress", this.handleLoadProgress.bind(this))
             .once("load", this.handleLoadComplete.bind(this))
@@ -45811,7 +45812,8 @@ var GameScreen = /** @class */ (function () {
         //create player sprites and add them to their player container
         this.playerContainer = this.createPlayer();
         this.app.stage.addChild(this.playerContainer);
-        this.playerMoveController = new PlayerMovementControl_1.PlayerMovementControl(this.app, this.player, new PIXI.Rectangle(0, 0, this.mapWidth, this.mapHeight), ["ArrowUp", "ArrowRight", "ArrowDown", "ArrowLeft"]);
+        var demoKeys = this.createDemoKeys();
+        this.playerMoveController = new PlayerMovementControl_1.PlayerMovementControl(this.app, this.player, new PIXI.Rectangle(0, 0, this.mapWidth, this.mapHeight), ["ArrowUp", "ArrowRight", "ArrowDown", "ArrowLeft"], demoKeys);
         app.ticker.add(function (delta) { return _this.gameLoop(delta); });
         window.addEventListener('resize', this.resize.bind(this));
         this.resize();
@@ -45839,6 +45841,15 @@ var GameScreen = /** @class */ (function () {
         this.player.y = this.app.screen.height * .5;
         playerContainer.addChild(this.player);
         return playerContainer;
+    };
+    GameScreen.prototype.createDemoKeys = function () {
+        var playerArrow = new PIXI.Sprite(pixi_js_1.Texture.from("playerArrow"));
+        playerArrow.width = this.app.screen.width * .2;
+        playerArrow.scale.y = playerArrow.scale.x;
+        playerArrow.x = 20;
+        playerArrow.y = this.app.screen.height - playerArrow.height - 20;
+        this.app.stage.addChild(playerArrow);
+        return playerArrow;
     };
     GameScreen.prototype.gameLoop = function (delta) {
         //update the player movement 
@@ -45894,11 +45905,12 @@ var PlayerMovementControl = /** @class */ (function () {
      * @param mapRect - player movement boundaries
      * @param keys - the keys used to control the character in the order of top-right-down-left
      */
-    function PlayerMovementControl(app, player, mapRect, keys) {
+    function PlayerMovementControl(app, player, mapRect, keys, demoKeys) {
         if (keys === void 0) { keys = ["W", "D", "S", "A"]; }
         this.app = app;
         this.player = player;
         this.mapRect = mapRect;
+        this.demoKeys = demoKeys;
         this.keyManager = new Keyboard_1.Keyboard();
         this.velocityX = 0;
         this.velocityY = 0;
@@ -45963,6 +45975,10 @@ var PlayerMovementControl = /** @class */ (function () {
         }
         if (this.player.x != newPlayerX || this.player.y != newPlayerY) {
             this.player.rotation = Math.atan2(newPlayerY - this.player.y, newPlayerX - this.player.x);
+        }
+        //reduce the alpha of the demo keys
+        if (this.demoKeys.alpha > 0 && (this.velocityY + this.velocityX) != 0) {
+            this.demoKeys.alpha -= .05;
         }
         this.player.x = newPlayerX;
         this.player.y = newPlayerY;

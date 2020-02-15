@@ -30,7 +30,8 @@ export class GameScreen {
         this.playerContainer = this.createPlayer();
         this.app.stage.addChild(this.playerContainer);
 
-        this.playerMoveController = new PlayerMovementControl(this.app, this.player, new PIXI.Rectangle(0,0,this.mapWidth, this.mapHeight), ["ArrowUp","ArrowRight","ArrowDown","ArrowLeft"]);
+        let demoKeys:PIXI.Sprite = this.createDemoKeys();
+        this.playerMoveController = new PlayerMovementControl(this.app, this.player, new PIXI.Rectangle(0,0,this.mapWidth, this.mapHeight), ["ArrowUp","ArrowRight","ArrowDown","ArrowLeft"], demoKeys);
 
         app.ticker.add(delta => this.gameLoop(delta));
 
@@ -69,6 +70,18 @@ export class GameScreen {
         playerContainer.addChild(this.player);
 
         return playerContainer;
+    }
+
+
+    private createDemoKeys():PIXI.Sprite{
+        let playerArrow:PIXI.Sprite = new PIXI.Sprite(Texture.from("playerArrow"));
+        playerArrow.width = this.app.screen.width * .2;
+        playerArrow.scale.y = playerArrow.scale.x;
+        playerArrow.x = 20;
+        playerArrow.y = this.app.screen.height - playerArrow.height - 20;
+        this.app.stage.addChild(playerArrow);
+
+        return playerArrow;
     }
 
     

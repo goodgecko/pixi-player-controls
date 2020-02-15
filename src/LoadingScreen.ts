@@ -9,6 +9,7 @@ export class LoadingScreen{
         PIXI.Loader.shared
             .add("player1", "assets/player1.png")
             .add("player2", "assets/player2.png")
+            .add("playerArrow", "assets/arrows.png")
             .add("field", "assets/field.png")
             .on("progress", this.handleLoadProgress.bind(this))
             .once("load", this.handleLoadComplete.bind(this))
